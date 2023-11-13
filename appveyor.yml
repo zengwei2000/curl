@@ -412,10 +412,10 @@ test_script:
           cmake --build . --config $env:PRJ_CFG --target test-ci
         }
         elseif($env:BUILD_SYSTEM -eq 'autotools') {
-          & bash -e -c "cd $env:POSIX_PATH_PREFIX/c/projects/curl && make V=1 TFLAGS='$acurl $env:DISABLED_TESTS' test-ci"
+          & bash -e -c "cd $env:POSIX_PATH_PREFIX/c/projects/curl && make V=1 TFLAGS='-j1 $acurl $env:DISABLED_TESTS' test-ci"
         }
         else {
-          & bash -e -c "cd $env:POSIX_PATH_PREFIX/c/projects/curl/tests && ./runtests.pl -a -p !flaky -r -rm $acurl $env:DISABLED_TESTS"
+          & bash -e -c "cd $env:POSIX_PATH_PREFIX/c/projects/curl/tests && ./runtests.pl -j1 -a -p !flaky -r -rm $acurl $env:DISABLED_TESTS"
         }
       }
 
